@@ -31,6 +31,7 @@ void return_remaining_balance(int remaining_balance)
 	int note = DENOMINATION_1000;
 	int no_of_notes = 0;
 	int no_of_return_notes = 0;
+	int return_notes[DENOMINATION_MAX] = {0};
 
 	printf("\nPlease take back your remaining balance.\n");
 	for(; note > -1 ; note--)
@@ -38,32 +39,47 @@ void return_remaining_balance(int remaining_balance)
 		if(!remaining_balance)
 			break;
 
+		// Count the number of notes of "note" currency to be returned to user.
 		no_of_notes = remaining_balance/map_enum_to_note(note);
 		if(!no_of_notes)
 			continue;
 
 		no_of_return_notes = no_of_notes;
 
-		if(no_of_notes < no_of_notes_user[note])
+		if(no_of_notes <= no_of_notes_user[note])	// If user entered same or more no of notes then add remaining notes to database.
 		{
-			no_of_notes_user[note] -= no_of_notes;
-			no_of_notes = update_notes_in_database(note, no_of_notes_user[note], true);
+			no_of_notes = update_notes_in_database(note, no_of_notes_user[note] - no_of_notes, true);
 		}
-		else
+		else	// If user entered less notes then check database and return from the database notes.
 		{
 			no_of_notes -= no_of_notes_user[note];
-			no_of_notes_user[note] = 0;
 			no_of_notes = update_notes_in_database(note, no_of_notes, false);
 		}
 
 		remaining_balance -= ((no_of_return_notes - no_of_notes) * map_enum_to_note(note));
-
-		if(no_of_return_notes - no_of_notes)
-			printf("\nNo of notes = %d of denomination = %d\n", no_of_return_notes - no_of_notes, map_enum_to_note(note));
+		return_notes[note] = no_of_return_notes - no_of_notes;
 	}
 
 	if(remaining_balance)
+	{
 		printf("\nSorry not enough notes available in system\n");
+		for(note = DENOMINATION_1000; note > -1 ; note--)
+		{
+			if(no_of_notes_user[note])
+				update_notes_in_database(note, return_notes[note], false);
+		}
+	}
+	else
+	{
+		for(note = DENOMINATION_1000; note > -1; note--)
+		{
+			if(return_notes[note])
+				printf("\nNo of notes = %d of denomination = %d\n", return_notes[note], map_enum_to_note(note));
+
+			if(no_of_notes_user[note])
+				update_notes_in_database(note, no_of_notes_user[note] - return_notes[note], true);
+		}
+	}
 }
 
 void disp_items()
