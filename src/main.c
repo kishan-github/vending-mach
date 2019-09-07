@@ -7,12 +7,33 @@
 extern int no_of_notes_user[DENOMINATION_MAX];
 extern item_list_e item[];
 
+/****************************************************************************************
+*                                                                                       *
+* Param : void                                                                          *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Initialize the data if required.                                        *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void init_data()
 {
 	// initialize no of notes of each currency
 	init_no_of_notes();
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : items[] - array of items purchased                                            *
+*         no_of_items - no of items purchased                                           *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Displays the list of items purchsed by user.                            *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void disp_purchased_items(int items[], int no_of_items)
 {
 	item_list_e *item_handle = NULL;
@@ -26,6 +47,16 @@ void disp_purchased_items(int items[], int no_of_items)
 	}
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : remaining_balance - the balance remaining to be returned to user.             *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Calculates how many notes of particular denomination to be returned to  *
+*               user and accordingly update the notes in the database.                  *
+*                                                                                       *
+****************************************************************************************/
 void return_remaining_balance(int remaining_balance)
 {
 	int note = DENOMINATION_1000;
@@ -82,6 +113,16 @@ void return_remaining_balance(int remaining_balance)
 	}
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : void                                                                          *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Displays the list of items available.                                   *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void disp_items()
 {
 	int i = 0;
@@ -95,6 +136,17 @@ void disp_items()
 	printf("\n----------------------------------------------------------------\n");
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : total - Total amount entered by user.                                         *
+*         temp_total - temporary amount initially set to 0.                             *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : User selects the items that he wants to buy.                   .        *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void disp_item_menu(int total, int temp_total)
 {
 	int user_items[50];
@@ -159,6 +211,16 @@ void disp_item_menu(int total, int temp_total)
 	return_remaining_balance(remaining_balance);
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : void                                                                          *
+*                                                                                       *
+* Return : Total amount entered by user.                                                *
+*                                                                                       *
+* Description : Takes valid denomination notes as input from user.                      *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int display_curr_menu()
 {                                                                                  
 	int user_input = 0;
@@ -199,7 +261,18 @@ int display_curr_menu()
 
 	printf("\n\n\nTotal amount entered by you = %d\n", total_amount);
 	return total_amount;
-}                                                                               
+}
+
+/****************************************************************************************
+*                                                                                       *
+* Param : void                                                                          *
+*                                                                                       *
+* Return : status                                                                       *
+*                                                                                       *
+* Description : Driver function.                                                        *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int main()                                                                      
 {
 	printf("\n **************************************************** \n");

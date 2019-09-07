@@ -19,7 +19,16 @@ item_list_e item[] =
 	{ .name = "Item6" , .code = ITEM_CODE_6 , .price = 200 , .quantity = 1 }
 };
 
-// initialize no of notes of each type
+/****************************************************************************************
+*                                                                                       *
+* Param : void                                                                          *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Initialize no of notes in system with default value.                    *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void init_no_of_notes()
 {
 	int index = 0;
@@ -28,19 +37,47 @@ void init_no_of_notes()
 		no_of_notes[index] = INITIAL_NOTES;
 }
 
-// get no of notes for specified note type
+/****************************************************************************************
+*                                                                                       *
+* Param : note - denomination type.                                                     *
+*                                                                                       *
+* Return : number of notes of note type denomination.                                   *
+*                                                                                       *
+* Description : Returns the no of notes of note type denomination.                      *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int get_no_of_notes(note_type_e note)
 {
 	return no_of_notes[note];
 }
 
-// set no of notes for specified note type
+/****************************************************************************************
+*                                                                                       *
+* Param : note - denomination type.                                                     *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Update the no of notes of denomination type note in the system.         *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void set_no_of_notes(note_type_e note)
 {
 	no_of_notes[note]++;
 }
 
-// Return notes to user
+/****************************************************************************************
+*                                                                                       *
+* Param : note - denomination type.                                                     *
+*         no_of_note - no of notes of type note.                                        *
+*                                                                                       *
+* Return : no of notes.                                                                 *
+*                                                                                       *
+* Description : Update the no of notes in the system.                                   *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int return_notes_to_user(note_type_e note, int no_of_note)
 {
 	if(no_of_notes[note] > no_of_note)
@@ -57,7 +94,16 @@ int return_notes_to_user(note_type_e note, int no_of_note)
 	return no_of_note;
 }
 
-// check the validity of the currency note
+/****************************************************************************************
+*                                                                                       *
+* Param : note - Denomination type.                                                     *
+*                                                                                       *
+* Return : valid currency or not.                                                       *
+*                                                                                       *
+* Description : Checks if the note entered by user is valid or not.                     *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 bool is_valid_note_type(note_type_e note)
 {
 	switch(note)
@@ -74,6 +120,16 @@ bool is_valid_note_type(note_type_e note)
 	}
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : note - Denomination type.                                                     *
+*                                                                                       *
+* Return : Note value.                                                                  *
+*                                                                                       *
+* Description : Returns the value of the corresponding note.                            *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int map_enum_to_note(note_type_e note)
 {
 	switch(note)
@@ -88,6 +144,16 @@ int map_enum_to_note(note_type_e note)
 	}
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : currency - note value.                                                        *
+*                                                                                       *
+* Return : Enum value.                                                                  *
+*                                                                                       *
+* Description : Returns the enum value corresponding to the note value.                 *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 note_type_e map_user_input_to_enum(int currency)
 {
 	switch(currency)
@@ -102,6 +168,16 @@ note_type_e map_user_input_to_enum(int currency)
 	}
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : code - item code.                                                             *
+*                                                                                       *
+* Return : Address of the item array.                                                   *
+*                                                                                       *
+* Description : Returns the address of the item array corresponding to the item code.   *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 item_list_e* get_item_handle(item_code_e code)
 {
 	int i = 0;
@@ -116,6 +192,16 @@ item_list_e* get_item_handle(item_code_e code)
 	return NULL;
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : item - handle of the item.                                                    *
+*                                                                                       *
+* Return : Item available or not.                                                       *
+*                                                                                       *
+* Description : Checks availability of the item.                                        *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 bool check_item_availability(item_list_e *item)
 {
 	if(!item)
@@ -130,6 +216,16 @@ bool check_item_availability(item_list_e *item)
 		return false;
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : item - handle of the item.                                                    *
+*                                                                                       *
+* Return : price of item.                                                               *
+*                                                                                       *
+* Description : Returns the price of the item.                                          *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int get_item_price(item_list_e *item)
 {
 	if(!item)
@@ -141,6 +237,16 @@ int get_item_price(item_list_e *item)
 	return item->price;
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : item - handle of item.                                                        *
+*                                                                                       *
+* Return : void                                                                         *
+*                                                                                       *
+* Description : Update the quantity of the item in system.                              *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 void update_item_quantity(item_list_e **item)
 {
 	if(!(*item))
@@ -152,6 +258,16 @@ void update_item_quantity(item_list_e **item)
 	((*item)->quantity)--;
 }
 
+/****************************************************************************************
+*                                                                                       *
+* Param : item - handle of item.                                                        *
+*                                                                                       *
+* Return : item name.                                                                   *
+*                                                                                       *
+* Description : Returns the item name.                                                  *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 char* get_item_name(item_list_e *item)
 {
 	if(!item)
@@ -162,7 +278,18 @@ char* get_item_name(item_list_e *item)
 	return item->name;
 }
 
-// Update the no of notes in the database based on the requirement.
+/****************************************************************************************
+*                                                                                       *
+* Param : note_t - Denomination type.                                                   *
+*         notes - no of notes.                                                          *
+*         is_update - add to or remove from database.                                   *
+*                                                                                       *
+* Return : no of notes of note_t type not available in system.                          *
+*                                                                                       *
+* Description : Update the notes in database after returning remaining balance to user. *
+*                                                                                       *
+*                                                                                       *
+****************************************************************************************/
 int update_notes_in_database(note_type_e note_t, int notes, bool is_update)
 {
 	if(is_update)
