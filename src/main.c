@@ -139,21 +139,18 @@ void disp_items()
 /****************************************************************************************
 *                                                                                       *
 * Param : total - Total amount entered by user.                                         *
-*         temp_total - temporary amount initially set to 0.                             *
 *                                                                                       *
 * Return : void                                                                         *
 *                                                                                       *
-* Description : User selects the items that he wants to buy.                   .        *
+* Description : User selects the items that he wants to buy.                            *
 *                                                                                       *
 *                                                                                       *
 ****************************************************************************************/
-void disp_item_menu(int total, int temp_total)
+int disp_item_menu(int *remaining_balance, int user_items[])
 {
-	int user_items[50];
 	int user_input = 0;
 	int i = 0;
 	item_list_e *item_handle = NULL;
-	int remaining_balance = total;
 
 	printf("\nStart entering the item code of the item you want to buy.\n");
 	printf("\nPress 0 anytime in between to finish your purchase.\n");
@@ -191,24 +188,21 @@ void disp_item_menu(int total, int temp_total)
 			continue;
 		}
 
-		if(get_item_price(item_handle) > remaining_balance)
+		if(get_item_price(item_handle) > *remaining_balance)
 		{
 			PRINT(ERR,"Selected item price is more than the remaining balance. Please select other item within remaining balance");
 			continue;
 		}
 
-		remaining_balance -= get_item_price(item_handle);
+		*remaining_balance -= get_item_price(item_handle);
 		user_items[i] = user_input;
 		update_item_quantity(&item_handle);
 		i++;
 
-		printf("\nBalnce remaining is = %d\n", remaining_balance);
+		printf("\nBalnce remaining is = %d\n", *remaining_balance);
 	}
 
-	disp_purchased_items(user_items, i);
-	printf("\nBalnce remaining after purchasing is = %d\n", remaining_balance);
-
-	return_remaining_balance(remaining_balance);
+	return i;
 }
 
 /****************************************************************************************
@@ -263,6 +257,24 @@ int display_curr_menu()
 	return total_amount;
 }
 
+void start_app()
+{
+	int total;
+	int user_items[50];
+	int no_of_items_bought = 0;
+	int remaining_balance = 0;
+
+	total = display_curr_menu();
+	remaining_balance = total;
+
+	no_of_items_bought = disp_item_menu(&remaining_balance, user_items);
+
+	disp_purchased_items(user_items, no_of_items_bought);
+	printf("\nBalnce remaining after purchasing is = %d\n", remaining_balance);
+
+	return_remaining_balance(remaining_balance);
+}
+
 /****************************************************************************************
 *                                                                                       *
 * Param : void                                                                          *
@@ -284,10 +296,8 @@ int main()
 	// initialize all the data first
 	init_data();
 
-	int total;
-	total = display_curr_menu();
-
-	disp_item_menu(total,0);
+	// start the application.
+	start_app();
 
 	getchar();
 	return 0;

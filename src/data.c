@@ -69,33 +69,6 @@ void set_no_of_notes(note_type_e note)
 
 /****************************************************************************************
 *                                                                                       *
-* Param : note - denomination type.                                                     *
-*         no_of_note - no of notes of type note.                                        *
-*                                                                                       *
-* Return : no of notes.                                                                 *
-*                                                                                       *
-* Description : Update the no of notes in the system.                                   *
-*                                                                                       *
-*                                                                                       *
-****************************************************************************************/
-int return_notes_to_user(note_type_e note, int no_of_note)
-{
-	if(no_of_notes[note] > no_of_note)
-	{
-		no_of_notes[note] -= no_of_note;
-		no_of_note = 0;
-	}
-	else
-	{
-		no_of_note -= no_of_notes[note];
-		no_of_notes[note] = 0;
-	}
-
-	return no_of_note;
-}
-
-/****************************************************************************************
-*                                                                                       *
 * Param : note - Denomination type.                                                     *
 *                                                                                       *
 * Return : valid currency or not.                                                       *
