@@ -1,12 +1,13 @@
 #include<data.h>
 #include<stddef.h>
 #include<stdio.h>
+#include<stdlib.h>
 
 // Array to store no of notes of each denomination
-int no_of_notes[DENOMINATION_MAX];
+int *no_of_notes;
 
 // Array to store no of notes of each denomination entered by user
-int no_of_notes_user[DENOMINATION_MAX];
+int *no_of_notes_user;
 
 // Basic items available
 item_list_e item[] =
@@ -32,7 +33,21 @@ item_list_e item[] =
 void init_no_of_notes()
 {
 	int index = 0;
+
+	no_of_notes = malloc(sizeof(int) * DENOMINATION_MAX);
+	if(!no_of_notes)
+	{
+		printf("\nMemory allocation failed.");
+		return;
+	}
 	
+	no_of_notes_user = malloc(sizeof(int) * DENOMINATION_MAX);
+	if(!no_of_notes_user)
+	{
+		printf("\nMemory allocation failed.");
+		return;
+	}
+
 	for(; index < DENOMINATION_MAX; index++)
 		no_of_notes[index] = INITIAL_NOTES;
 }

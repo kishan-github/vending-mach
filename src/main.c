@@ -4,7 +4,7 @@
 #include<data.h>                                                               
 #include<main.h>
 
-extern int no_of_notes_user[DENOMINATION_MAX];
+extern int *no_of_notes_user;
 extern item_list_e item[];
 
 /****************************************************************************************
